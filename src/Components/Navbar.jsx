@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import AppBar from '@mui/material/AppBar';
@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { DataContext } from '../DataContext'; // Correct import path
 
-const pages = ['Punch In/Out'];
+const pages = ['Punch In/Out', 'Table'];
 const settings = ['Logout'];
 
 function ResponsiveAppBar() {
@@ -39,6 +39,16 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  // Handle navigation
+  const handleNavigate = (page) => {
+    if (page === 'Table') {
+      navigate('/table');
+    } else if (page === 'Punch In/Out') {
+      navigate('/home');
+    }
+    handleCloseNavMenu();
   };
 
   // Handle logout
@@ -107,7 +117,7 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={() => handleNavigate(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -136,7 +146,7 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleNavigate(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}

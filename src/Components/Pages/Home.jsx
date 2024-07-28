@@ -4,7 +4,7 @@ import { DataContext } from '../../DataContext';
 import Punch from './Punch.jsx';
 
 const Home = () => {
-  const { currentUser, allData } = useContext(DataContext);
+  const { currentUser} = useContext(DataContext);
 
   return (
     <>

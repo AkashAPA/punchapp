@@ -18,7 +18,7 @@ const Login = () => {
     useEffect(() => {
         // Clear localStorage when Login page is accessed
         localStorage.removeItem('currentUser');
-        
+
         // Check if user is already logged in
         const storedUser = localStorage.getItem('currentUser');
         if (storedUser) {
@@ -64,7 +64,7 @@ const Login = () => {
 
         const loginData = allData.loginData || [];
         // Find user by username and password
-        const user = loginData.find(user => 
+        const user = loginData.find(user =>
             user.empId === formData.UserName &&
             user.password === formData.Password
         );
@@ -119,7 +119,7 @@ const Login = () => {
                                                 style={{ width: 185 }}
                                                 alt="logo"
                                             />
-                                            <h4 className="mt-1 mb-5 pb-1">We are The Eilisys Team</h4>
+                                            <h4 className="mt-1 mb-5 pb-1">We are The Patil's Team</h4>
                                         </div>
                                         <form onSubmit={handleSubmit}>
                                             <p>Please login to your account</p>
@@ -169,11 +169,9 @@ const Login = () => {
                                     <div className="text-white px-3 py-4 p-md-5 mx-md-4 d-none d-sm-block">
                                         <h4 className="mb-4">We are more than just a company</h4>
                                         <p className="small mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                            do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                            Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                            laboris nisi ut aliquip ex ea commodo consequat.
+                                            The punch app, often referred to as an employee time tracking or attendance management system, is designed to streamline and automate the process of tracking employee working hours, break times, and overall attendance. Here's a brief overview of its functionality and benefits:
                                         </p>
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -101,54 +101,55 @@ const Punch = () => {
 
     return (
         <>
-        <div className="container">
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="date">
-                        <h6>{formatDate(currentTime)}</h6>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="date">
+                            <h6>{formatDate(currentTime)}</h6>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="time">
-                        <h5>{formatTime(currentTime)}</h5>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="time">
+                            <h5>{formatTime(currentTime)}</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="punchInOutBtns">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<AlarmOnIcon />}
-                            onClick={() => handlePunch('Punch In')}
-                            className='mx-2'
-                        >
-                            Punch In
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            startIcon={<AlarmOffIcon />}
-                            onClick={() => handlePunch('Punch Out')}
-                        >
-                            Punch Out
-                        </Button>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="punchInOutBtns">
+                            <Button
+                                variant="contained"
+                                sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'darkgreen' } }}
+                                startIcon={<AlarmOnIcon />}
+                                onClick={() => handlePunch('Punch In')}
+                                className='mx-2'
+                            >
+                                Punch In
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ backgroundColor: 'red', '&:hover': { backgroundColor: 'darkred' } }}
+                                startIcon={<AlarmOffIcon />}
+                                onClick={() => handlePunch('Punch Out')}
+                            >
+                                Punch Out
+                            </Button>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-md-12">
-                    <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
+                <div className="row">
+                    <div className="col-md-12">
+                        <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
+                    </div>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col-md-12 spp m-sm-5 ">
-                    <ControlledAccordions punchData={filteredPunches} />
+                <div className="row">
+                    <div className="col-md-12 spp ">
+                        <ControlledAccordions punchData={filteredPunches} />
+                    </div>
                 </div>
-            </div>
             </div>
         </>
     );
