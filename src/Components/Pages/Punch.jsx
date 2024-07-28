@@ -15,8 +15,8 @@ import AlarmOffIcon from '@mui/icons-material/AlarmOff'; // Icon for Punch Out
 
 const Punch = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
-    const { allData, currentUser } = useContext(DataContext);
-    const [punchData, setPunchData] = useState(allData ? allData.punchData : []);
+    const { allData, currentUser, setAllData } = useContext(DataContext); // Added setAllData to context
+    const [punchData, setPunchData] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [filteredPunches, setFilteredPunches] = useState([]);
     const [openCalendarDialog, setOpenCalendarDialog] = useState(false);
@@ -30,9 +30,24 @@ const Punch = () => {
     }, []);
 
     useEffect(() => {
+        fetchPunchData(); // Fetch punch data on component mount
+    }, []);
+
+    useEffect(() => {
         // Filter punches for the current user and selected date
         filterPunchesByDate(selectedDate);
     }, [punchData, selectedDate]);
+
+    const fetchPunchData = async () => {
+        try {
+            const response = await axios.get('https://punchdata.onrender.com/allData');
+            const allData = response.data;
+            setPunchData(allData.punchData);
+            setAllData(allData); // Update the context data
+        } catch (error) {
+            console.error('Error fetching punch data:', error);
+        }
+    };
 
     const formatDate = (date) => {
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -86,8 +101,10 @@ const Punch = () => {
     const todayDate = formatDate(new Date());
     const userPunches = punchData.filter(punch => punch.empId === currentUser.empId && punch.dateOfPunch === todayDate);
 
+
     return (
         <>
+        <div className="container">
             <div className="row">
                 <div className="col-md-12">
                     <div className="date">
@@ -165,9 +182,11 @@ const Punch = () => {
                 </div>
             </div>
             <div className="row">
-                <div className="col-md-12 spp m-sm-5">
+                <div className="col-md-12 spp m-sm-5 ">
+
                     <ControlledAccordions punchData={filteredPunches.length > 0 ? filteredPunches : userPunches} />
                 </div>
+            </div>
             </div>
         </>
     );

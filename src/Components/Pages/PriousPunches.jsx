@@ -32,7 +32,7 @@ const ControlledAccordions = ({ punchData }) => {
     };
 
     return (
-        <div>
+        <div className=''> 
             <Accordion
                 expanded={expanded === 'panel1'}
                 onChange={handleChange('panel1')}
@@ -52,7 +52,7 @@ const ControlledAccordions = ({ punchData }) => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <StyledTableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="punches table">
+                        <Table aria-label="punches table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Date</TableCell>

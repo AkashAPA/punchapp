@@ -38,7 +38,7 @@ const DataProvider = ({ children }) => {
     };
 
     return (
-        <DataContext.Provider value={{ allData, loading, currentUser, updateCurrentUser }}>
+        <DataContext.Provider value={{ allData, loading, currentUser, updateCurrentUser ,setAllData}}>
             {children}
         </DataContext.Provider>
     );
