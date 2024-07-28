@@ -37,7 +37,7 @@ const ControlledAccordions = ({ punchData }) => {
                 expanded={expanded === 'panel1'}
                 onChange={handleChange('panel1')}
                 sx={{
-                    mt: { xs: 2, sm: 3, md: 4, lg: 5 }, // Responsive margin-top
+                    mt: { xs: 2, sm: 3, md: 4, lg: 1 }, // Responsive margin-top
                     mx: { xs: 1, sm: 2 }, // Responsive margin-left/right
                 }}
             >
@@ -72,7 +72,7 @@ const ControlledAccordions = ({ punchData }) => {
                                 ) : (
                                     <TableRow>
                                         <TableCell colSpan={3} align="center">
-                                            No punches for today.
+                                        No records to display.
                                         </TableCell>
                                     </TableRow>
                                 )}

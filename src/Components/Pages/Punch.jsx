@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import './Punch.css';
 import ControlledAccordions from './PriousPunches';
 import { DataContext } from '../../DataContext';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'; // Icon for Punch In
 import AlarmOffIcon from '@mui/icons-material/AlarmOff'; // Icon for Punch Out
+import Calendar from './Calendar'; // Import the new Calendar component
 
 const Punch = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -19,7 +14,6 @@ const Punch = () => {
     const [punchData, setPunchData] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [filteredPunches, setFilteredPunches] = useState([]);
-    const [openCalendarDialog, setOpenCalendarDialog] = useState(false);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -29,16 +23,7 @@ const Punch = () => {
         return () => clearInterval(timer); // Cleanup the interval on component unmount
     }, []);
 
-    useEffect(() => {
-        fetchPunchData(); // Fetch punch data on component mount
-    }, []);
-
-    useEffect(() => {
-        // Filter punches for the current user and selected date
-        filterPunchesByDate(selectedDate);
-    }, [punchData, selectedDate]);
-
-    const fetchPunchData = async () => {
+    const fetchPunchData = useCallback(async () => {
         try {
             const response = await axios.get('https://punchdata.onrender.com/allData');
             const allData = response.data;
@@ -47,7 +32,23 @@ const Punch = () => {
         } catch (error) {
             console.error('Error fetching punch data:', error);
         }
-    };
+    }, [setAllData]);
+
+    useEffect(() => {
+        fetchPunchData(); // Fetch punch data on component mount
+    }, [fetchPunchData]);
+
+    const filterPunchesByDate = useCallback((date) => {
+        if (!currentUser) return;
+        const formattedDate = formatDate(date);
+        const punchesForDate = punchData.filter(punch => punch.empId === currentUser.empId && punch.dateOfPunch === formattedDate);
+        setFilteredPunches(punchesForDate);
+    }, [currentUser, punchData]);
+
+    useEffect(() => {
+        // Filter punches for the current user and selected date
+        filterPunchesByDate(selectedDate);
+    }, [punchData, selectedDate, filterPunchesByDate]);
 
     const formatDate = (date) => {
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -60,6 +61,7 @@ const Punch = () => {
     };
 
     const handlePunch = async (status) => {
+        if (!currentUser) return;
         const newPunch = {
             empId: currentUser.empId,
             firstName: currentUser.firstName,
@@ -70,7 +72,7 @@ const Punch = () => {
         };
 
         try {
-            const response = await axios.post('https://punchdata.onrender.com/allData', {
+            await axios.post('https://punchdata.onrender.com/allData', {
                 ...allData,
                 punchData: [...punchData, newPunch],
             });
@@ -80,13 +82,6 @@ const Punch = () => {
         }
     };
 
-    // Filter punchData based on the selected date
-    const filterPunchesByDate = (date) => {
-        const formattedDate = formatDate(date);
-        const punchesForDate = punchData.filter(punch => punch.empId === currentUser.empId && punch.dateOfPunch === formattedDate);
-        setFilteredPunches(punchesForDate);
-    };
-
     const handleDateChange = (date) => {
         setSelectedDate(date);
         if (date) {
@@ -94,13 +89,15 @@ const Punch = () => {
         } else {
             setFilteredPunches([]);
         }
-        setOpenCalendarDialog(false);
     };
 
     // Default to today's punches if no date is selected
+    // eslint-disable-next-line
     const todayDate = formatDate(new Date());
-    const userPunches = punchData.filter(punch => punch.empId === currentUser.empId && punch.dateOfPunch === todayDate);
-
+    // eslint-disable-next-line
+    const userPunches = currentUser
+        ? punchData.filter(punch => punch.empId === currentUser.empId && punch.dateOfPunch === todayDate)
+        : [];
 
     return (
         <>
@@ -144,47 +141,12 @@ const Punch = () => {
             </div>
             <div className="row">
                 <div className="col-md-12">
-                    <div className="calendar">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<CalendarTodayIcon />}
-                            onClick={() => setOpenCalendarDialog(true)}
-                            style={{ marginTop: '20px' }}
-                        >
-                            Select Date
-                        </Button>
-                        <Dialog
-                            open={openCalendarDialog}
-                            onClose={() => setOpenCalendarDialog(false)}
-                            maxWidth="xs" // Small size dialog
-                            fullWidth
-                            PaperProps={{
-                                style: {
-                                    maxWidth: '300px', // Adjust this value to fit the calendar
-                                    minWidth: '300px',
-                                },
-                            }}
-                        >
-                            <DialogTitle>Select a Date</DialogTitle>
-                            <DialogContent>
-                                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                                    <DatePicker
-                                        selected={selectedDate}
-                                        onChange={handleDateChange}
-                                        dateFormat="MM/dd/yyyy"
-                                        inline
-                                    />
-                                </div>
-                            </DialogContent>
-                        </Dialog>
-                    </div>
+                    <Calendar selectedDate={selectedDate} onDateChange={handleDateChange} />
                 </div>
             </div>
             <div className="row">
                 <div className="col-md-12 spp m-sm-5 ">
-
-                    <ControlledAccordions punchData={filteredPunches.length > 0 ? filteredPunches : userPunches} />
+                    <ControlledAccordions punchData={filteredPunches} />
                 </div>
             </div>
             </div>
