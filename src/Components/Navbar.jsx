@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { DataContext } from '../DataContext'; // Correct import path
 
-const pages = ['Punch In/Out', 'Table'];
+const pages = ['Punch In/Out', 'Table','NewPunch'];
 const settings = ['Logout'];
 
 function ResponsiveAppBar() {
@@ -47,6 +47,8 @@ function ResponsiveAppBar() {
       navigate('/table');
     } else if (page === 'Punch In/Out') {
       navigate('/home');
+    }else if (page === 'NewPunch') {
+      navigate('/newPunch');
     }
     handleCloseNavMenu();
   };

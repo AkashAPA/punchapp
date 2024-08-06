@@ -1,0 +1,143 @@
+.MainContainer{
+    background-color: rgb(211, 246, 234);
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Box{
+    background-color: white;
+    height: 20rem;
+    width: 30rem;
+    border-radius: 10px ;
+
+}
+.header{
+    height: 15%;
+    width: 100%;
+    display: flex;
+}
+.attendance{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 30px;
+}
+.AttendanceText{
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.viewHistory{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sBox{
+    height: 130px;
+    width: 100%;
+    display: flex;
+}
+.punchDetails{
+    /* height: 30%;
+    width: 100%; */
+    background-color: #e9eff08e;
+    display: flex;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 4px 18px
+}
+.dateTime{
+    height: 100%;
+    width: 65%;
+    
+}
+.dateS{
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 30px;
+}
+.imgTime{
+    height: 70%;
+    width: 100%;
+    display: flex;
+}
+.img{
+    height: 100%;
+    width: 35%;
+}
+.timeB{
+    height: 100%;
+    width: 65%;
+}
+.timeBo{
+    font-size: 40px;
+    text-align: justify;
+    font-weight: 500;
+    /* display: flex; */
+}
+.format{
+    font-size: small;
+    margin-top: -10px;
+    display: flex;
+   align-items: start;
+
+}
+
+.pIo{
+    width: 35%;
+    height: 100%;
+   
+}
+.pIn,.pOut{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.punchText{
+    height: 35%;
+    width: 100%;
+    align-items: center;
+}
+.PunchTime{
+    height: 65%;
+    width: 100%;
+    align-items: center;
+}
+.timeF{
+    font-size: 18px;
+    font-weight: 550;
+}
+.finger{
+    height: 35%;
+    width: 11%;
+    text-align: end;
+}
+.PiT{
+    height: 100%;
+    width: 27%;
+}
+.PoT{
+    height: 100%;
+    width: 27%;
+}
+.wTime{
+    height: 100%;
+    width: 35%;
+}
+.viewMActivities{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

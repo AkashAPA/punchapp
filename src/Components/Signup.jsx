@@ -5,6 +5,7 @@ import { MDBTooltip } from 'mdb-react-ui-kit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { DataContext } from '../DataContext'; // Correct import path
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const Signup = () => {
     const { allData} = useContext(DataContext);
@@ -113,16 +114,22 @@ const Signup = () => {
     
             // Reset form data
             setFormData(initialFormData);
-            toast.success('🦄 Signup Successful!', {
-                position: 'top-right',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'colored',
+            Swal.fire({
+                title: 'Signup Successful!',
+                text: `Your Employee ID is ${newEmployeeId}. Use this ID as your username.`,
+                icon: 'success',
+                confirmButtonText: 'OK',
             });
+            // toast.success('🦄 Signup Successful!', {
+            //     position: 'top-right',
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: 'colored',
+            // });
     
         } catch (error) {
             console.error('Post error:', error);

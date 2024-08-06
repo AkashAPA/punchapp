@@ -10,6 +10,7 @@ const Home = () => {
     <>
       <Navbar currentUser={currentUser} />
         <Punch/>
+        
          {/* Render your data here */}
       {/* <pre>{JSON.stringify(allData, null, 2)}</pre> */}
     </>
