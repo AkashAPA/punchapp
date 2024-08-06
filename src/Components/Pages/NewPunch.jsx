@@ -57,9 +57,11 @@ const NewPunch = () => {
     };
 
     const formatTimeWithoutSeconds = (date) => {
-        const options = { hour: '2-digit', minute: '2-digit', hour12: true };
-        return date.toLocaleTimeString('en-US', options);
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
     };
+
     const getSystemTimeZone = () => {
         return Intl.DateTimeFormat().resolvedOptions().timeZone;
     };
