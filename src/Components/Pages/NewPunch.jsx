@@ -62,6 +62,14 @@ const NewPunch = () => {
         return `${hours}:${minutes}`;
     };
 
+    const formatTimeForAPI = (date) => {
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+        return `${hours}:${minutes}:${seconds} ${ampm}`;
+    };
+
     const getSystemTimeZone = () => {
         return Intl.DateTimeFormat().resolvedOptions().timeZone;
     };
@@ -74,7 +82,7 @@ const NewPunch = () => {
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             dateOfPunch: formatDate(currentTime),
-            timeOfPunch: formatTimeWithoutSeconds(currentTime),
+            timeOfPunch: formatTimeForAPI(currentTime),
             status: status,
         };
 
@@ -120,7 +128,6 @@ const NewPunch = () => {
                                             <span className='timeBo'>{formatTimeWithoutSeconds(currentTime)}</span>
                                             <br />
                                             <span className='format'>{getSystemTimeZone()}</span>
-                                            {/* <span className='format'>New Delhi(GMT+5:30)</span> */}
                                         </div>
                                     </div>
                                 </div>
