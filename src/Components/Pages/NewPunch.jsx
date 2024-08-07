@@ -108,7 +108,7 @@ const NewPunch = () => {
     return (
         <>
             <Navbar />
-            <div className="row">
+            <div className="row main">
                 <div className="col-md-12">
                     <div className="MainContainer">
                         <div className="Box">
